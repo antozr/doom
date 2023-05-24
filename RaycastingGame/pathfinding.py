@@ -16,11 +16,11 @@ class PathFinding:
         
         while step and step != start:
             path.append(step)
-            step =self.visited(step)
+            step = self.visited[step]
         return path[-1]
         
     def bfs(self, start, goal, graph):
-        queue =deque([start])
+        queue = deque([start])
         visited = {start: None}
         
         while queue:
@@ -30,7 +30,7 @@ class PathFinding:
             next_nodes = graph[cur_node]
             
             for next_node in next_nodes:
-                if next_node not in visited:
+                if next_node not in visited and next_node not in self.game.object_handler.npc_positions:
                     queue.append(next_node)
                     visited[next_node] = cur_node
         return visited
